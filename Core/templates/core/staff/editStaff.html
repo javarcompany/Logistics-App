@@ -1,0 +1,29 @@
+
+
+{% if messages %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                toastr.options = { "closeButton": true, "debug": false, "newestOnTop": true,
+                    "progressBar": true, "positionClass": "toast-top-right", "preventDuplicates": true,
+                    "onclick": null, "showDuration": "300", "hideDuration": "1000", "timeOut": "5000",
+                    "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "linear",
+                    "showMethod": "fadeIn", "hideMethod": "fadeOut" };
+                {% autoescape off %}
+                    {% for msg in messages %}
+                        toastr.{{ msg.level_tag }}("{{ msg }}");
+                    {% endfor %}
+                {% endautoescape %}
+            });
+        </script>
+    {% endif %}
+
+
+
+
+
+<div class="btn-group">
+    <a class="btn btn-primary" href="{% url 'edit_branch' branch.id %}"><i class=""></i> Edit</a>
+    {% if user.is_superuser %}
+    <a class="btn btn-warning" href="{% url 'delete_branch' branch.id %}"> Delete</a>
+    {% endif %}
+</div>
