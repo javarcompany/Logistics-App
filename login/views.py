@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+
+from django.contrib.auth.forms import PasswordChangeForm
+
 from django.contrib import messages
 from .forms import *
 
@@ -34,3 +37,18 @@ def logoutuser(request):
     messages.warning(request, "You are out of the system")
     logout(request)
     return redirect('login')
+
+@login_required(login_url='login')
+def change_psw(request):
+    if request.method == "POST":
+        passwordForm = PasswordChangeForm(request.user, request.POST)
+        if passwordForm.is_valid():
+            changes = passwordForm.save()
+            update_session_auth_hash(request, changes)
+            messages.success(request, "Password have modified successfullly/..!")
+            return redirect('index')
+        else:
+            print(passwordForm)
+            messages.error(request, "An error was encountered while modifying password..!")
+    context = {}
+    return render(request, "authentication/change_psw.html", context)

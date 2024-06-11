@@ -1,0 +1,106 @@
+{% extends "administration/base_site.html" %}
+{% load static %}
+
+{% block main-content %}
+<section class="wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Change Password</h1>
+                </div>
+
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'index' %}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Change Password</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-widget widget-user shadow">
+                        <div class="widget-user-header bg-info">
+                            <h3 class="widget-user-username">{{user.first_name}} {{user.last_name}}</h3>
+                            <h5 class="widget-user-desc">
+                                {% if user.is_superuser %}
+                                    Super User 
+                                {% endif %}
+                            </h5>
+                        </div>
+
+                        <div class="widget-user-image">
+                            <img src="/media/{{user.img}}" alt="User Image" class="img-circle elevation-2">
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-sm-6 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header">@{{user.username}}</h5>
+                                        <span class="description-text">USER NAME</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header">@{{user.email}}</h5>
+                                        <span class="description-text">USER EMAIL</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 float-center">
+                                    <form action="" class="form-horizontal">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="text-center">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-key text-info"></i></span>
+                                                    </div>
+                                                    <input type="password" name="old_password" id="" class="form-control" placeholder="Old Password" autocomplete="current-password" autofocus required>
+                                                </div>
+
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-key text-warning"></i></span>
+                                                    </div>
+                                                    <input type="password" name="new_password1" id="" class="form-control" placeholder="New Password" autocomplete="new-password" required>
+                                                </div>
+
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-key text-warning"></i></span>
+                                                    </div>
+                                                    <input type="password" name="new_password2" id="" class="form-control" placeholder="New Password" autocomplete="new-password" required>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-lg-12">
+                                                <input type="submit" value="Change Password" class="btn btn-primary">
+                                                <a href="{% url 'index' %}" class="btn btn-danger">Cancel</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+{% endblock %}
