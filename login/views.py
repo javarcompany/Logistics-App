@@ -29,3 +29,8 @@ def loginuser(request):
 
     context = {"login_form":login_form}
     return render(request, 'authentication/login.html', context)
+
+def logoutuser(request):
+    messages.warning(request, "You are out of the system")
+    logout(request)
+    return redirect('login')
